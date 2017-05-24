@@ -23,34 +23,32 @@ class UserShow extends Component {
     }
 
     var unames = [];
+    var pId;
     var listProf;
+
     for ( var i = 0; i < user.profession.length; i++) {
       unames.push(user.profession[i]);
     }
 
     this.props.professions.map((profession) => {
-      // for (var index = 0; index < unames.length; index++) {
-      //   if (unames[index] == profession.profession) {
-      //     console.log(profession.id);
-      //   }
-      // }
+      listProf = unames.map((uname) => {
 
-        listProf = unames.map((uname) => {
+        function onLinkClicked(uname, e) {
+          var professions = this.props.professions;
 
-          function onLinkClicked(uname, e) {
-            var pId  = profession.id;
-            { uname == profession.profession ? pId : "nothing"}
-              console.log(uname);
-              console.log(pId);
-            this.context.router.push("professions/"+"8020dd946b6de9b0");
-          }
-
-          return (
-            <p onClick={onLinkClicked.bind(this, uname)}>{uname}</p>
-          )
+          Object.keys(professions).forEach(function (key) {
+            var val = professions[key];
+            if (val.profession == uname) {
+              pId = val.id;
+            }
+          });
+          this.context.router.push("professions/"+ pId);
 
         }
-      );
+        return (
+          <p><button onClick={onLinkClicked.bind(this, uname)}>{uname}</button></p>
+        )
+      });
     });
 
       return (
